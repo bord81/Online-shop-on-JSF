@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="ru">
+<body>
+<ui:composition template="main.xhtml">
+    <ui:define name="content">
+        <f:view transient="true">
+        <div class="media">
+            <div class="media-left">
+            <h:graphicImage value="#{itemsList.oneItem.image}"/>
+        </div>
+        <div class="media-body">
+            <h4><h:outputText value="#{itemsList.oneItem.fullName}"/></h4>
+            <h:outputText value="${itemsList.oneItem.descript}"/>
+        </div>
+            <div class="media-middle media-right">
+                <h:outputText value="Price"/>
+                <h:outputText value="&lt;br/&gt;" escape="false"/>
+                <h:outputText value="#{itemsList.onePrice}"/>
+                <p><h:form><h:commandLink class="btn btn-primary" role="button" action="${cManager.addItem}">
+                    <f:param name="add" value="#{itemsList.oneItem.id}"/>
+                    <f:param name="id" value="#{itemsList.oneItem.id}"/>
+                    Add to Cart
+                </h:commandLink></h:form></p>
+            </div>
+        </div>
+        </f:view>
+</ui:define>
+</ui:composition>
+</body>
+        </html>

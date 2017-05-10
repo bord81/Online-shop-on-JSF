@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough" xml:lang="en" lang="en">
+<body>
+<ui:composition template="main.xhtml">
+    <ui:define name="content">
+<f:view transient="true">
+    <h:form class="well form-horizontal" id="contact_form">
+        <fieldset>
+            <legend>Contact Us</legend>
+            <div class="form-group">
+                <label class="col-md-4 control-label" style="float: left">First Name</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group"/>
+                        <h:inputText p:placeholder="First Name" id="fname" class="form-control" required="true" value="#{contact.firstname}" requiredMessage="Please enter your name">
+                        </h:inputText>
+                        <h:message for="fname" style="color: red"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" style="float: left" >Last Name</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group"/>
+                        <h:inputText p:placeholder="Last Name" id="lname" class="form-control" required="true" requiredMessage="Please enter your last name" value="#{contact.fullname}">
+                        </h:inputText>
+                        <h:message for="lname" style="color: red"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" style="float: left">E-Mail</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group"/>
+                        <h:inputText id="s_email" p:placeholder="Sender E-Mail" class="form-control" required="true" requiredMessage="Please enter sender's email" validatorMessage="Please enter email as name@domain.ext" value="#{contact.senderemail}">
+                            <f:validateRegex pattern="^.+@.+\..+$"/>
+                        </h:inputText>
+                        <h:message for="s_email" style="color: red"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" style="float: left">To: E-Mail</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group"/>
+                        <h:inputText id="email" p:placeholder="E-Mail Address" class="form-control" required="true" requiredMessage="Please enter your email" validatorMessage="Please enter email as name@domain.ext" value="#{contact.recemail}">
+                            <f:validateRegex pattern="^.+@.+\..+$"/>
+                        </h:inputText>
+                        <h:message for="email" style="color: red"/>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <label class="col-md-4 control-label" style="float: left">Your comments</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group"/>
+                        <h:inputTextarea class="form-control" id="comment" p:placeholder="Tell us what you think" required="true" requiredMessage="Please enter some text" validatorMessage="Please enter at least one symbol" value="#{contact.message}">
+                            <f:validateRegex pattern=".+"/>
+                        </h:inputTextarea>
+                        <h:message for="comment" style="color: red"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" style="float: left">SMTP host: </label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group"/>
+                        <h:inputText id="host" class="form-control" required="true" requiredMessage="Please enter SMTP server" value="#{contact.host}">
+                        </h:inputText>
+                        <h:message for="host" style="color: red"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" style="float: left">Port: </label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group"/>
+                        <h:inputText id="port" class="form-control" required="true" requiredMessage="Please enter SMTP port" value="#{contact.port}">
+                            <f:convertNumber integerOnly="true"/>
+                        </h:inputText>
+                        <h:message for="port" style="color: red"/>
+                    </div>
+                </div>
+            </div><div class="form-group">
+                <label class="col-md-4 control-label" style="float: left">Mail login: </label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group"/>
+                        <h:inputText id="usname" class="form-control" required="true" requiredMessage="Please enter your mail login" value="#{contact.mlogin}">
+                        </h:inputText>
+                        <h:message for="usname" style="color: red"/>
+                    </div>
+                </div>
+            </div><div class="form-group">
+                <label class="col-md-4 control-label" style="float: left">Mail pass: </label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group"/>
+                        <h:inputSecret id="uspass" class="form-control" required="true" requiredMessage="Please enter your mail pass" value="#{contact.mpass}">
+                        </h:inputSecret>
+                        <h:message for="uspass" style="color: red"/>
+                    </div>
+                </div>
+            </div>
+            <!-- Success message -->
+            <h:outputText id="success_message1" value="#{contact.firstname != null ? 'Dear&nbsp;': ''}"/>
+            <h:outputText id="success_message2" value="#{contact.firstname != null ? contact.firstname : ''}"/>
+            <h:outputText id="success_message3" value="#{contact.firstname != null ? ',&nbsp;thank you for your interest. Test email has been sent to&nbsp;': ''}"/>
+            <h:outputText id="success_message4" value="#{contact.recemail != null ? contact.recemail: ''}"/>
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label"/>
+                <div class="col-md-4">
+                    <h:commandButton class="btn btn-warning" value="Send_test" action="#{contact.sendMail}"/>
+                </div>
+            </div>
+        </fieldset>
+    </h:form>
+
+
+</f:view>
+    </ui:define>
+</ui:composition>
+</body>
+</html>
