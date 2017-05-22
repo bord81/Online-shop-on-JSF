@@ -61,18 +61,25 @@ public class CartManager {
                 Cookie cookie = (Cookie) cookieMap.get("c0ntAct");
                 String userCookie = cookie.getValue();
                 UserJsf currentUser = new UserJsf();
+                boolean isPresent = false;
                 for (UserJsf user : userList) {
                     if (user.getCookie().equals(userCookie)) {
                         currentUser = new UserJsf(user.getId(), user.getCookie(), user.getBasket());
+                        isPresent = true;
                         break;
                     }
                 }
-                CartList cartList = new Gson().fromJson(currentUser.getBasket(), CartList.class);
-                cartList.items.add(Integer.valueOf(mapParams.get("add")));
-                currentUser.setBasket(new Gson().toJson(cartList));
-                userStatus.setCurrentUser(currentUser);
-                updateUsersDb(currentUser);
-                logger.info("addItem: current user was updated first time based on cookie");
+                if (!isPresent) {
+                    logger.info("addItem: new user was updated");
+                    addNewUser();
+                } else {
+                    CartList cartList = new Gson().fromJson(currentUser.getBasket(), CartList.class);
+                    cartList.items.add(Integer.valueOf(mapParams.get("add")));
+                    currentUser.setBasket(new Gson().toJson(cartList));
+                    userStatus.setCurrentUser(currentUser);
+                    updateUsersDb(currentUser);
+                    logger.info("addItem: current user was updated first time based on cookie");
+                }
             } else {
                 addNewUser();
                 logger.info("addItem: new user was updated");
